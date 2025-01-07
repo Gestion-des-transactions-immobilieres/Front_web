@@ -6,13 +6,12 @@ import { Select, AutoComplete } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import Annonces_map_livre from "../intermediaire/Annonces_intermediaire";
 
-const App = ({ url, filtre,etat }) => {
-
+const App = ({ url, filtre, etat }) => {
   useEffect(() => {
-    const user = localStorage.getItem('USER');
+    const user = localStorage.getItem("USER");
     if (!user) {
-      localStorage.removeItem('USER');
-      window.location.href = '/login'; 
+      localStorage.removeItem("USER");
+      window.location.href = "/login";
     }
   }, []);
 
@@ -58,9 +57,9 @@ const App = ({ url, filtre,etat }) => {
 
   const resetFilters = () => {
     setFilterParams(initialFilterParams);
-    setSelectedCommune(null); // Réinitialiser la commune sélectionnée à null
-    setSelectedCommuneId(null); // Réinitialiser l'ID de la commune sélectionnée à null
-    setDisplayedCommuneName(null); // Réinitialiser le nom de la commune affichée à null
+    setSelectedCommune(null);
+    setSelectedCommuneId(null);
+    setDisplayedCommuneName(null);
   };
 
   const fetchAnnonces = () => {
@@ -75,14 +74,11 @@ const App = ({ url, filtre,etat }) => {
   };
 
   async function fetchCommunes(debutNom) {
-    console.log("first ", debutNom); // Vérifiez que debutNom a la valeur attendue ici
     try {
       const response = await axios.get(
         `http://localhost:3002/communes/search/${encodeURIComponent(debutNom)}`
       );
       setCommunesOptions(response.data);
-      console.log("response ", response); // Vérifiez que debutNom a la valeur attendue ici
-      console.log("first ", debutNom); // Vérifiez que debutNom a la valeur attendue ici
     } catch (error) {
       console.error("Erreur lors de la requête fetchCommunes :", error);
     }
@@ -117,7 +113,6 @@ const App = ({ url, filtre,etat }) => {
       commune: selectedCommune,
       communeId: selectedCommuneId || null,
     };
-    console.log(params);
     axios
       .post(`http://localhost:3002/annonces/${filtre}`, params)
       .then((res) => {
@@ -129,20 +124,20 @@ const App = ({ url, filtre,etat }) => {
   };
 
   return (
-    <div className=" ml-20 mr-6  grid grid-cols-4 gap-1">
-      {/* Filters */}
-      <div className="shadow-md rounded px-6 pt-4 pb-8 mb-4  flex flex-col bg-teal-300  col-span-1">
-        <h2 className="text-xl font-semibold mb-4 text-center">
+    <div className="ml-20 mr-6 grid grid-cols-4 gap-4">
+      {/* Sidebar des filtres */}
+      <div className="shadow-md rounded px-6 pt-4 pb-8 flex flex-col bg-blue-100 col-span-1">
+        <h2 className="text-xl font-semibold mb-4 text-center text-blue-700">
           Filtrer les annonces
         </h2>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3">
           <select
             name="typeBien"
             value={filterParams.typeBien ? filterParams.typeBien : ""}
             onChange={handleFilterChange}
             className="border rounded-lg p-2 focus:outline-none focus:border-blue-500"
           >
-            <option value="">type de bien</option>
+            <option value="">Type de bien</option>
             {typesBien.map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -155,7 +150,7 @@ const App = ({ url, filtre,etat }) => {
             onChange={handleFilterChange}
             className="border rounded-lg p-2 focus:outline-none focus:border-blue-500"
           >
-            <option value="">type d'opération</option>
+            <option value="">Type d'opération</option>
             {typesOperation.map((type) => (
               <option key={type} value={type}>
                 {type}
@@ -195,49 +190,51 @@ const App = ({ url, filtre,etat }) => {
             className="border rounded-lg p-2 focus:outline-none focus:border-blue-500"
           />
           <AutoComplete
-            className=" h-full text-center"
+            className="h-full text-center"
             options={communesOptions.map((commune) => ({
               label: commune.commune,
               value: commune.id,
             }))}
             onSearch={(value) => {
-              setDisplayedCommuneName(value); // Update displayed commune name
+              setDisplayedCommuneName(value);
               fetchCommunes(value);
             }}
             onSelect={(value, option) => {
-              setDisplayedCommuneName(option.label); // Set displayed commune name
-              setSelectedCommuneId(value); // Save selected commune ID
+              setDisplayedCommuneName(option.label);
+              setSelectedCommuneId(value);
               setFilterParams({
                 ...filterParams,
-                debutNom: option.label, // Use the label (commune name) as debutNom
-                communeId: value, // Pass the ID separately if needed for POST method
+                debutNom: option.label,
+                communeId: value,
               });
             }}
             placeholder="Rechercher une commune"
-            value={displayedCommuneName} // Set value to display the commune name
+            value={displayedCommuneName}
           />
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center gap-2">
             <button
               onClick={resetFilters}
-              className=" rounded-full w-8 h-8 bg-red-500 hover:bg-red-700 text-white focus:outline-none"
+              className="rounded-full w-8 h-8 bg-blue-400 hover:bg-blue-600 text-white focus:outline-none flex items-center justify-center"
             >
               <CloseOutlined style={{ fontSize: "16px" }} />
             </button>
+            <button
+              onClick={handleFilterSubmit}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded text-sm"
+            >
+              Filtrer
+            </button>
           </div>
-          <button
-            onClick={handleFilterSubmit}
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4  rounded mt-4"
-          >
-            Filtrer
-          </button>
         </div>
       </div>
-      <div className="shadow-md roundedpx-6 pt-4 pb-8 mb-4 col-span-3">
+
+      {/* Main content */}
+      <div className="shadow-md rounded px-6 pt-4 pb-8 col-span-3 bg-blue-50">
         <div className="flex justify-center mb-4">
           <button
             onClick={handleMapButtonClick}
             className={`mr-4 px-4 py-2 rounded ${
-              showMap ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-700"
+              showMap ? "bg-blue-500 text-white" : "bg-blue-200 text-blue-700"
             }`}
           >
             Afficher Liste
@@ -245,18 +242,22 @@ const App = ({ url, filtre,etat }) => {
           <button
             onClick={handleListButtonClick}
             className={`px-4 py-2 rounded ${
-              !showMap ? "bg-blue-500 text-white" : "bg-gray-300 text-gray-700"
+              !showMap ? "bg-blue-500 text-white" : "bg-blue-200 text-blue-700"
             }`}
           >
-            Afficher Map
+            Afficher Carte
           </button>
         </div>
         <div className="flex justify-center mb-4">
-        {showMap ? (
-          <ListPage annonces_props={annonces} etat={etat} fetchAnnonces={fetchAnnonces} />
-        ) : (
-          <Annonces_map_livre annonces_props={annonces} />
-        )}
+          {showMap ? (
+            <ListPage
+              annonces_props={annonces}
+              etat={etat}
+              fetchAnnonces={fetchAnnonces}
+            />
+          ) : (
+            <Annonces_map_livre annonces_props={annonces} />
+          )}
         </div>
       </div>
     </div>

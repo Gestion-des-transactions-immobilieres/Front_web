@@ -4,7 +4,7 @@ import Button from "../../Design/Button";
 import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { BiChevronDown } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
-import { FaHome } from "react-icons/fa";
+import logo from "./icons/logo.jpg";
 
 const categories = [
   { nom: "Categorie 1", id: "1" },
@@ -55,7 +55,7 @@ const Navbar = () => {
         spy={true}
         smooth={true}
         duration={500}
-        className="hover:text-brightColor transition-all cursor-pointer"
+        className="hover:text-blue-600 transition-all cursor-pointer"
       >
         {children}
       </Link>
@@ -69,7 +69,7 @@ const Navbar = () => {
         spy={true}
         smooth={true}
         duration={500}
-        className="hover:text-brightColor transition-all cursor-pointer"
+        className="hover:text-blue-600 transition-all cursor-pointer"
         onClick={onClickHandler}
       >
         {children}
@@ -78,14 +78,14 @@ const Navbar = () => {
   };
 
   return (
-    <div className=" fixed w-full z-20">
+    <div className="  w-full z-20">
       <div>
         <div className=" flex flex-row justify-between p-5 md:px-32 px-5 bg-white shadow-[0_3px_10px_rgb(0,0,0,0.2)]">
           <div className=" flex flex-row items-center cursor-pointer ">
             <span>
-              <FaHome size={32} />
+            <img src={logo} alt="Home Icon" style={{ width: '70px', height: '70px' }} />
             </span>
-            <h1 className=" text-xl font-semibold">TransactionWeb</h1>
+            <h1 className=" text-xl font-semibold">Digital Transaction</h1>
           </div>
 
           <nav className="hidden md:flex flex-row items-center text-lg font-medium gap-8">

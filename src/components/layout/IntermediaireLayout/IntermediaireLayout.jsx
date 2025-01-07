@@ -15,7 +15,7 @@ import Switch_MT from "../../../pages/public/Switch_MT";
 const IntermediareLayout = () => {
   return (
     <div className=' bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[2px] py-[2px] pr-2 '>
-      <Sidebar sideBarLinks={intermediareSidebarLinks } name="E.intermediare"/>
+      <Sidebar sideBarLinks={intermediareSidebarLinks } name="intermediare"/>
       <NavbarAdmin />
       <main className="flex flex-col gap-2 mt-14 ml-auto mr-40 w-full overflow-y-auto">
         <Routes>
