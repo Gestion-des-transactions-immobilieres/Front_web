@@ -104,7 +104,7 @@ export default function DashboardStatsGrid() {
 					<IoPeople className="text-2xl text-white" />
 				</div>
 				<div className="pl-4">
-					<span className="text-lg text-gray-500 font-light">Nombre intermediaire</span>
+					<span className="text-lg text-orange-600 font-semibold">Nombre intermediaire</span>
 					<div className="flex items-center">
 						<strong className="text-xl text-gray-700 font-semibold">{Nb_tottale_intermediaires}</strong>
 						{/* <span className="text-sm text-green-500 pl-2">-343</span> */}
@@ -112,11 +112,11 @@ export default function DashboardStatsGrid() {
 				</div>
 			</BoxWrapper>
 			<BoxWrapper>
-				<div className="rounded-full h-12 w-12 flex items-center justify-center bg-yellow-400">
+				<div className="rounded-full h-12 w-12 flex items-center justify-center bg-yellow-500">
 					<IoPeople className="text-2xl text-white" />
 				</div>
 				<div className="pl-4">
-					<span className="text-lg text-gray-500 font-light">Nombre Citoyen </span>
+					<span className="text-lg text-yellow-500 font-semibold ">Nombre d'annonceurs </span>
 					<div className="flex items-center">
 						<strong className="text-xl text-gray-700 font-semibold">{Nb_tottale_citoyens}</strong>
 						{/* <span className="text-sm text-red-500 pl-2">-30</span> */}

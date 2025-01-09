@@ -12,7 +12,7 @@ function BienTable() {
   useEffect(() => {
     const getBiens = async () => {
       try {
-        const response = await axios.get('http://localhost:3002/bien');
+        const response = await axios.get('http://localhost:3002/biens');
         setBiens(response.data);
       } catch (error) {
         console.log(error);

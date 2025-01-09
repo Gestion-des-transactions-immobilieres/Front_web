@@ -40,4 +40,9 @@
   .read-the-docs {
     color: #888;
   }
-  
+  .page-content {
+    margin-top: 0;
+}
+.navbar {
+  padding-bottom: 0;
+}

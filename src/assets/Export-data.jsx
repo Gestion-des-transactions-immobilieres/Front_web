@@ -23,10 +23,6 @@ export const adminSidebarLinks = [
     { title: "Tableau de bord", icon: <BsInboxes /> ,link:'/intermediaire/tableau-bord'},
     { title: "Annonces libres", icon: <AiOutlineCalendar />,link:'/intermediaire/map-annonces' },
     {title: "Mes annonces réservées", icon: <AiOutlineBarChart />,link:'/intermediaire/annonces-reservees' },
-    {title: "Mes annonces rejetées", icon: <AiOutlineBarChart />,link:'/intermediaire/annonces-rejeter' },
-    {title: "Archivages", icon: <AiOutlineBarChart />,link:'/intermediaire/archivage' },
-    { title: "Espace public", icon: <AiOutlineCalendar />,link:'/intermediaire/annonce-public' },
-
   ];
 
 

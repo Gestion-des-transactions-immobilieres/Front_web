@@ -18,14 +18,14 @@ import Bien_Categorie from "../../../pages/public/Bien_categorie";
 import MapWithEsriBasemap from "./Map1";
 
 import Switch from "../../../pages/public/Switch_MT_public";
-
+import Signup from "../../../pages/login/signup";
 import Dashboard from "../../chart/Dashboard_public";
 
 const PublicLayout = () => {
   return (
     <div className=' bg-gray-100 w-screen min-h-screen relative flex flex-col items-center pl-[2px] py-[2px] pr-2 '>
       <Navbar />
-      <main className="flex flex-col gap-2 mt-20 w-full overflow-y-auto" >
+     
         <Routes>
           <Route index element={<Home />} />
           <Route path="/home" element={<Home />} />
@@ -48,9 +48,10 @@ const PublicLayout = () => {
           <Route path="/menu" element={<Switch url="Annonces_publie" filtre="filtre" etat="public"/>} />
           <Route path="/review" element={<Review />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
         </Routes>
        
-      </main>
+      
       <Footer />
     </div>
   );

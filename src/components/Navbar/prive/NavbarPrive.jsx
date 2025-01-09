@@ -6,10 +6,7 @@ const Navbar = () => {
       <nav
         className="fixed top-0 left-0 right-0 flex gap-6 justify-end w-full py-3 px-12 z-40 bg-blue-600 dark:bg-blue-900 border-b-[1px] border-blue-300 dark:border-blue-800"
       >
-        {/* Icone de recherche */}
-        <BsSearch
-          className="fill-blue-100 w-[34px] h-[34px] p-[6px] rounded-full border-2 overflow-visible border-blue-300 dark:border-blue-800 hover:bg-blue-500 hover:fill-white transition duration-200"
-        />
+        
 
         {/* Image de profil */}
         <img

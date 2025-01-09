@@ -1,31 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import DishesCard from "../../components/Design/DishesCard";
-import menu1 from "/assets/img/maison11.jpeg";
 
-const Liste = ({ annonces_props ,etat,fetchAnnonces}) => {
-
-  console.log("immmm the etat from list",etat);
-
-
+const Liste = ({ annonces_props, etat, fetchAnnonces }) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [annoncesPerPage] = useState(6);
-
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilterParams({ ...filterParams, [name]: value });
-  };
-
-  const handleFilterSubmit = () => {
-    axios
-      .post("http://localhost:3002/annonces/filtre", filterParams)
-      .then((res) => {
-        setAnnonces(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
+  const annoncesPerPage = 6;
 
   const handleClickNext = () => {
     if (currentPage < totalPages) {
@@ -42,6 +21,7 @@ const Liste = ({ annonces_props ,etat,fetchAnnonces}) => {
   const handleClickPage = (page) => {
     setCurrentPage(page);
   };
+
   const indexOfLastAnnonce = currentPage * annoncesPerPage;
   const indexOfFirstAnnonce = indexOfLastAnnonce - annoncesPerPage;
   const currentAnnonces = annonces_props.slice(
@@ -52,47 +32,54 @@ const Liste = ({ annonces_props ,etat,fetchAnnonces}) => {
   const totalPages = Math.ceil(annonces_props.length / annoncesPerPage);
 
   return (
-    <div className="min-h-screen  flex flex-col justify-center items-center ">
-      {/* <h1 className="text-4xl font-semibold text-center  pb-2">
-        Ne laissez pas cette chance passer !
-      </h1> */}
+    <div className="min-h-screen flex flex-col justify-center items-center">
       {/* Pagination */}
-      <div className="mt-2 pb-2 ">
+      <div className="flex items-center space-x-2 my-4">
+        {/* Bouton Précédent */}
         <button
           onClick={handleClickPrev}
           disabled={currentPage === 1}
-          className="mx-1 px-3 py-1 rounded bg-gray-300 text-gray-600"
+          className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:bg-gray-200 disabled:opacity-50"
         >
-          Précédent
+          &lt;
         </button>
-        <input
-          type="number"
-          value={currentPage}
-          onChange={(e) => {
-            const page = parseInt(e.target.value);
-            if (page > 0 && page <= totalPages) {
-              setCurrentPage(page);
-            }
-          }}
-          className="mx-1 px-3 py-1 rounded bg-gray-300 text-gray-600"
-        />
-        <span className="mx-1 px-3 py-1 rounded bg-gray-300 text-gray-600">
-          / {totalPages}
-        </span>
+
+        {/* Pages */}
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => handleClickPage(index + 1)}
+            className={`w-8 h-8 flex items-center justify-center rounded-full border ${
+              currentPage === index + 1
+                ? "bg-blue-500 text-white"
+                : "border-gray-300 text-gray-700 hover:bg-gray-200"
+            }`}
+          >
+            {index + 1}
+          </button>
+        ))}
+
+        {/* Bouton Suivant */}
         <button
           onClick={handleClickNext}
           disabled={currentPage === totalPages}
-          className="mx-1 px-3 py-1 rounded bg-gray-300 text-gray-600"
+          className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:bg-gray-200 disabled:opacity-50"
         >
-          Suivant
+          &gt;
         </button>
+      </div>
+
+      {/* Informations sur les items */}
+      <div className="text-sm text-gray-600 mb-4">
+        {`${indexOfFirstAnnonce + 1}-${Math.min(
+          indexOfLastAnnonce,
+          annonces_props.length
+        )} of ${annonces_props.length} items`}
       </div>
 
       {/* Affichage de la liste des annonces */}
       <div className="flex flex-wrap gap-8 justify-center w-full">
         {currentAnnonces.map((annonce) => {
-          console.log(annonce);
-          console.log(annonce.photo);
           const imgUrls = annonce.photo
             ? annonce.photo.split(";").map((url) => url.trim())
             : ["/assets/img/maison11.jpeg"];

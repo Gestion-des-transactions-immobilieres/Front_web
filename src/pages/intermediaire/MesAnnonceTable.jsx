@@ -411,36 +411,40 @@ function AnnonceTable({ url }) {
         )}
 
         {/* Pagination */}
-        <div className="mt-5">
+        <div className="flex items-center space-x-2 my-4">
+        {/* Bouton Précédent */}
+        <button
+          onClick={handleClickPrev}
+          disabled={currentPage === 1}
+          className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:bg-gray-200 disabled:opacity-50"
+        >
+          &lt;
+        </button>
+
+        {/* Pages */}
+        {Array.from({ length: totalPages }, (_, index) => (
           <button
-            onClick={handleClickPrev}
-            disabled={currentPage === 1}
-            className="mx-1 px-3 py-1 rounded bg-gray-300 text-gray-600"
+            key={index + 1}
+            onClick={() => handleClickPage(index + 1)}
+            className={`w-8 h-8 flex items-center justify-center rounded-full border ${
+              currentPage === index + 1
+                ? "bg-blue-500 text-white"
+                : "border-gray-300 text-gray-700 hover:bg-gray-200"
+            }`}
           >
-            Précédent
+            {index + 1}
           </button>
-          <input
-            type="number"
-            value={currentPage}
-            onChange={(e) => {
-              const page = parseInt(e.target.value);
-              if (page > 0 && page <= totalPages) {
-                setCurrentPage(page);
-              }
-            }}
-            className="mx-1 px-3 py-1 rounded bg-gray-300 text-gray-600"
-          />
-          <span className="mx-1 px-3 py-1 rounded bg-gray-300 text-gray-600">
-            / {totalPages}
-          </span>
-          <button
-            onClick={handleClickNext}
-            disabled={currentPage === totalPages}
-            className="mx-1 px-3 py-1 rounded bg-gray-300 text-gray-600"
-          >
-            Suivant
-          </button>
-        </div>
+        ))}
+
+        {/* Bouton Suivant */}
+        <button
+          onClick={handleClickNext}
+          disabled={currentPage === totalPages}
+          className="w-8 h-8 flex items-center justify-center rounded-full border border-gray-300 text-gray-500 hover:bg-gray-200 disabled:opacity-50"
+        >
+          &gt;
+        </button>
+      </div>
       </div>
     </>
   );

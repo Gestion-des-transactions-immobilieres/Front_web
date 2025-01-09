@@ -27,6 +27,7 @@ const IntermediareLayout = () => {
           <Route path="/annonces-reservees" element={< Gestion_mes_annonces_reserve/>} />
           <Route path="/annonces-rejeter" element={< Gestion_mes_annonces_rejete/>} />
           <Route path="/archivage" element={< Gestion_mes_annonces_archiver/>} />
+          
         </Routes>
       </main>
     </div>
